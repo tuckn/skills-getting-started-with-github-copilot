@@ -118,6 +118,7 @@ section h3 {
   border-radius: 50%;
   width: 22px;
   height: 22px;
+  padding: 0;
   cursor: pointer;
   font-size: 0.8rem;
   line-height: 1;

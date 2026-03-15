@@ -3,13 +3,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const activitySelect = document.getElementById("activity");
   const signupForm = document.getElementById("signup-form");
   const messageDiv = document.getElementById("message");
+  let messageHideTimeoutId;
 
   function showMessage(text, type) {
     messageDiv.textContent = text;
     messageDiv.className = type;
     messageDiv.classList.remove("hidden");
-    setTimeout(() => {
+    if (messageHideTimeoutId) {
+      clearTimeout(messageHideTimeoutId);
+    }
+    messageHideTimeoutId = setTimeout(() => {
       messageDiv.classList.add("hidden");
+      messageHideTimeoutId = undefined;
     }, 5000);
   }
 
@@ -21,6 +26,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Clear loading message
       activitiesList.innerHTML = "";
+
+      // Reset activity dropdown options while keeping the placeholder (if any)
+      if (activitySelect) {
+        const placeholderOption = activitySelect.querySelector("option");
+        activitySelect.innerHTML = "";
+        if (placeholderOption && placeholderOption.value === "") {
+          activitySelect.appendChild(placeholderOption);
+        }
+      }
 
       // Populate activities list
       Object.entries(activities).forEach(([name, details]) => {

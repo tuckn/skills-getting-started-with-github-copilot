@@ -1,5 +1,4 @@
 from fastapi.testclient import TestClient
-from src import app
 
 
 def test_get_activities(client: TestClient):
